@@ -48,7 +48,10 @@
     NSString *resultString = [self smartTranslation:pboard.string];
     self.text = resultString;
 #ifdef MCDEBUG
-    NSLog(@"before:%@,after:%@",@"0123456789*+#abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$%^&()_-=[]{}|\\;:'\",.<>/?",[self smartTranslation:@"0123456789*+#abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$%^&()_-=[]{}|\\;:'\",.<>/?"]);
+    NSLog(@"before:%@,after:%@",@"0123456789*+#abcdefghijklmnopqrstuvwxyz"
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZ$%^&()_-=[]{}|\\;:'\",.<>/?"
+          ,[self smartTranslation:@"0123456789*+#abcdefghijklmnopqrstuvwxyz"
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ$%^&()_-=[]{}|\\;:'\",.<>/?"]);
 #endif
 }
 
@@ -64,7 +67,9 @@
 #pragma mark - utils function
 - (NSString *)smartTranslation:(NSString *)string
 {
-    NSString *filter =  [[string componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:VALID_NUMBER_CHARS] invertedSet]] componentsJoinedByString:@""];
+    NSString *filter =  [[string componentsSeparatedByCharactersInSet:
+                          [[NSCharacterSet characterSetWithCharactersInString:VALID_NUMBER_CHARS] invertedSet]]
+                         componentsJoinedByString:@""];
     NSMutableString *mapper = [NSMutableString string];
     for (int i = 0; i < [filter length]; i++) {
         unichar curChar = [filter characterAtIndex:i];
